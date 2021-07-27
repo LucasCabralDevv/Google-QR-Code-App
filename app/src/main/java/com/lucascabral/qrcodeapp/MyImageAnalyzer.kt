@@ -9,9 +9,10 @@ import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.common.InputImage
 
-class MyImageAnalyzer : ImageAnalysis.Analyzer {
+class MyImageAnalyzer(fragmentManager: FragmentManager) : ImageAnalysis.Analyzer {
 
-    private lateinit var fragmentManager: FragmentManager
+    private var bottomDialog: BottomDialog = BottomDialog()
+    private var _fragmentManager: FragmentManager = fragmentManager
 
     override fun analyze(image: ImageProxy) {
         scanBarCode(image)
@@ -58,6 +59,10 @@ class MyImageAnalyzer : ImageAnalysis.Analyzer {
                     val type = barcode.wifi!!.encryptionType
                 }
                 Barcode.TYPE_URL -> {
+                    if (!bottomDialog.isAdded) {
+                        bottomDialog.show(_fragmentManager, "")
+                    }
+                    bottomDialog.fetchUrl(barcode.url.url)
                     val title = barcode.url!!.title
                     val url = barcode.url!!.url
                 }

@@ -50,9 +50,8 @@ class MyImageAnalyzer(fragmentManager: FragmentManager) : ImageAnalysis.Analyzer
 
             val rawValue = barcode.rawValue
 
-            val valueType = barcode.valueType
             // See API reference for complete list of supported types
-            when (valueType) {
+            when (barcode.valueType) {
                 Barcode.TYPE_WIFI -> {
                     val ssid = barcode.wifi!!.ssid
                     val password = barcode.wifi!!.password

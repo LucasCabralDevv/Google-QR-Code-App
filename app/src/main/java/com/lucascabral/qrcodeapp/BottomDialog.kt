@@ -26,7 +26,7 @@ class BottomDialog : BottomSheetDialogFragment() {
         binding.dialogTitleTextView.text = fetchUrl
         binding.dialogVisitLinkTextView.setOnClickListener {
             val intent = Intent("android.intent.action.VIEW")
-            intent.setData(Uri.parse(fetchUrl))
+            intent.data = Uri.parse(fetchUrl)
             startActivity(intent)
         }
         binding.dialogCloseImageView.setOnClickListener {
